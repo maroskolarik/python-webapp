@@ -1,0 +1,60 @@
+version: 2.1
+
+jobs:
+  test:
+    docker:
+      - image: python:3.12-slim-bookworm
+    steps:
+      - checkout
+      - run:
+          name: Install Flask
+          command: pip install flask
+      - run:
+          name: Run test
+          command: python3 ./src/test_webapp.py
+  build:
+    docker:
+      - image: cimg/base:2024.01
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run:
+          name: Build Docker image
+          command: |
+            TAG=1.0
+            docker build -t $REGISTRY_USER/$CIRCLE_PROJECT_REPONAME:$TAG .
+      - run:
+          name: Push Docker image
+          command: |
+            TAG=1.0
+            echo $REGISTRY_PASS | docker login -u $REGISTRY_USER --password-stdin
+            docker push $REGISTRY_USER/$CIRCLE_PROJECT_REPONAME:$TAG
+
+  deploy:
+    docker:
+      - image: cimg/base:2024.01
+    steps:
+      - checkout
+      - run:
+          name: Deploy Over SSH
+          command: |
+            TAG=1.0
+            ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST "
+            docker login -u $REGISTRY_USER -p $REGISTRY_PASS &&
+            docker container stop $CIRCLE_PROJECT_REPONAME || true &&
+            docker container rm $CIRCLE_PROJECT_REPONAME || true &&
+            docker pull $REGISTRY_USER/$CIRCLE_PROJECT_REPONAME:$TAG &&
+            docker run --name $CIRCLE_PROJECT_REPONAME -p 5005:5000 -d $REGISTRY_USER/$CIRCLE_PROJECT_REPONAME:$TAG"
+
+
+workflows:
+  ci_cd_pipeline:
+    jobs:
+      - test
+      - build:
+          requires:
+            - test
+      - deploy:
+          requires:
+            - build
