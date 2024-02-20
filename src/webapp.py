@@ -5,7 +5,7 @@ webapp = Flask(__name__)
 
 @webapp.route('/')
 def home():
-    return "Welcome to webapp using CircleCI!"
+    return "Welcome to webapp!"
 
 
 if __name__ == '__main__':
