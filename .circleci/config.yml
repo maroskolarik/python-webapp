@@ -4,6 +4,7 @@ jobs:
   test:
     docker:
       - image: python:3.12-slim-bookworm
+    resource_class: medium
     steps:
       - checkout
       - run:
@@ -15,6 +16,7 @@ jobs:
   build:
     docker:
       - image: cimg/base:2024.01
+    resource_class: large
     steps:
       - checkout
       - setup_remote_docker:
@@ -32,8 +34,9 @@ jobs:
             docker push $REGISTRY_USER/$CIRCLE_PROJECT_REPONAME:$TAG
 
   deploy:
-    machine:
-      - image: ubuntu-2204:2024.01.1
+    docker:
+      - image: cimg/base:2024.01
+    resource_class: small
     steps:
       - checkout
       - run:
