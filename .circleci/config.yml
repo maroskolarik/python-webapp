@@ -52,7 +52,7 @@ jobs:
 
 
 workflows:
-  ci_cd_pipeline:
+  test_build_deploy:
     jobs:
       - test
       - build:
