@@ -4,7 +4,7 @@ jobs:
   test:
     docker:
       - image: python:3.12-slim-bookworm
-    resource_class: medium
+    resource_class: small
     steps:
       - checkout
       - run:
