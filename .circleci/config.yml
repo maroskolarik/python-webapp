@@ -16,7 +16,7 @@ jobs:
   build:
     docker:
       - image: cimg/base:2024.01
-    resource_class: large
+    resource_class: medium
     steps:
       - checkout
       - setup_remote_docker:
