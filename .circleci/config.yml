@@ -9,7 +9,7 @@ jobs:
       - checkout
       - run:
           name: Install requirements
-          command: pip install -r requirements.txt
+          command: "pip install -r requirements.txt"
       - run:
           name: Run test
           command: python3 ./src/test_webapp.py
