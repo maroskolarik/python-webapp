@@ -8,8 +8,10 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install requirements
-          command: "pip install -r requirements.txt"
+          name: Install Flask
+          command: pip install flask
+#          name: Install requirements
+#          command: "pip install -r requirements.txt"
       - run:
           name: Run test
           command: python3 ./src/test_webapp.py
