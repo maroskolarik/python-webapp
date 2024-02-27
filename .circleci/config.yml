@@ -18,7 +18,7 @@ jobs:
       - image: cimg/base:2024.01
     resource_class: medium
     environment:
-      TAG: 0.0.$PIPELINE_NUMBER
+      TAG: 0.0.0
     steps:
       - checkout
       - setup_remote_docker:
