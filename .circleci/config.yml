@@ -24,19 +24,20 @@ jobs:
       - setup_remote_docker:
           docker_layer_caching: false
       - run:
-          name: Build Docker image
+          name: Build and push Docker image
           command: |
-            docker buildx build --platform linux/amd64,linux/arm64 -t $REGISTRY_USER/$CIRCLE_PROJECT_REPONAME:$TAG .
-            docker buildx build --platform linux/amd64,linux/arm64 -t $REGISTRY_USER/$CIRCLE_PROJECT_REPONAME .
+            docker buildx create --use
+            docker buildx build --platform linux/amd64,linux/arm64 -t $REGISTRY_USER/$CIRCLE_PROJECT_REPONAME:$TAG --push .
+            docker buildx build --platform linux/amd64,linux/arm64 -t $REGISTRY_USER/$CIRCLE_PROJECT_REPONAME --push .
 #            docker build -t $REGISTRY_USER/$CIRCLE_PROJECT_REPONAME:$TAG .
 #            docker build -t $REGISTRY_USER/$CIRCLE_PROJECT_REPONAME .
-      - run:
-          name: Push Docker image
-          command: |
-            echo $REGISTRY_PASS | docker login -u $REGISTRY_USER --password-stdin
-            docker push $REGISTRY_USER/$CIRCLE_PROJECT_REPONAME:$TAG
-            sleep 2
-            docker push $REGISTRY_USER/$CIRCLE_PROJECT_REPONAME
+#      - run:
+#          name: Push Docker image
+#          command: |
+#            echo $REGISTRY_PASS | docker login -u $REGISTRY_USER --password-stdin
+#            docker push $REGISTRY_USER/$CIRCLE_PROJECT_REPONAME:$TAG
+#            sleep 2
+#            docker push $REGISTRY_USER/$CIRCLE_PROJECT_REPONAME
 
   deploy:
     docker:
