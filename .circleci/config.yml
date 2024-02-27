@@ -25,12 +25,14 @@ jobs:
           name: Build Docker image
           command: |
             TAG=1.0
+            docker build -t $REGISTRY_USER/$CIRCLE_PROJECT_REPONAME .
             docker build -t $REGISTRY_USER/$CIRCLE_PROJECT_REPONAME:$TAG .
       - run:
           name: Push Docker image
           command: |
             TAG=1.0
             echo $REGISTRY_PASS | docker login -u $REGISTRY_USER --password-stdin
+            docker push $REGISTRY_USER/$CIRCLE_PROJECT_REPONAME
             docker push $REGISTRY_USER/$CIRCLE_PROJECT_REPONAME:$TAG
 
   deploy:
@@ -47,8 +49,8 @@ jobs:
             docker login -u $REGISTRY_USER -p $REGISTRY_PASS &&
             docker container stop $CIRCLE_PROJECT_REPONAME || true &&
             docker container rm $CIRCLE_PROJECT_REPONAME || true &&
-            docker pull $REGISTRY_USER/$CIRCLE_PROJECT_REPONAME:$TAG &&
-            docker run --name $CIRCLE_PROJECT_REPONAME -p 5005:5000 -d $REGISTRY_USER/$CIRCLE_PROJECT_REPONAME:$TAG"
+            docker pull $REGISTRY_USER/$CIRCLE_PROJECT_REPONAME &&
+            docker run --name $CIRCLE_PROJECT_REPONAME -p 5005:5000 -d $REGISTRY_USER/$CIRCLE_PROJECT_REPONAME"
 
 
 workflows:
