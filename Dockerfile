@@ -11,6 +11,7 @@ ENV PYTHONUNBUFFERED=1
 WORKDIR /app
 
 # Create a non-privileged user that the app will run under.
+# See https://docs.docker.com/go/dockerfile-user-best-practices/
 ARG UID=10001
 RUN adduser \
     --disabled-password \
@@ -33,10 +34,12 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 USER appuser
 
 # Copy the source code into the container.
-COPY . .
+COPY ./src/webapp.py .
 
 # Expose the port that the application listens on.
 EXPOSE 5000
+
+# Run the application.
 
 # Define environment variable
 ENV FLASK_APP=webapp.py
