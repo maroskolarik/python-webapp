@@ -38,5 +38,8 @@ COPY . .
 # Expose the port that the application listens on.
 EXPOSE 5000
 
-# Run the application.
-CMD ["gunicorn", "src.webapp:webapp", "--bind=0.0.0.0:5000"]
+# Define environment variable
+ENV FLASK_APP=webapp.py
+
+# Run app.py when the container launches
+CMD ["flask", "run", "--host=0.0.0.0"]
