@@ -39,4 +39,4 @@ COPY . .
 EXPOSE 5000
 
 # Run the application.
-CMD gunicorn 'src.webapp:webapp' --bind=0.0.0.0:5000
+CMD ["gunicorn", "src.webapp:webapp", "--bind=0.0.0.0:5000"]
