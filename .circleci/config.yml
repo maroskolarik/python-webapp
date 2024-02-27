@@ -24,16 +24,16 @@ jobs:
       - run:
           name: Build Docker image
           command: |
-            TAG=0.0.$CIRCLE_BUILD_NUM
-            docker build -t $REGISTRY_USER/$CIRCLE_PROJECT_REPONAME .
+            TAG=0.0.$PIPELINE_NUMBER
             docker build -t $REGISTRY_USER/$CIRCLE_PROJECT_REPONAME:$TAG .
+            docker build -t $REGISTRY_USER/$CIRCLE_PROJECT_REPONAME .
       - run:
           name: Push Docker image
           command: |
-            TAG=0.0.$CIRCLE_BUILD_NUM
+            TAG=0.0.$PIPELINE_NUMBER
             echo $REGISTRY_PASS | docker login -u $REGISTRY_USER --password-stdin
-            docker push $REGISTRY_USER/$CIRCLE_PROJECT_REPONAME
             docker push $REGISTRY_USER/$CIRCLE_PROJECT_REPONAME:$TAG
+            docker push $REGISTRY_USER/$CIRCLE_PROJECT_REPONAME
 
   deploy:
     docker:
@@ -44,7 +44,7 @@ jobs:
       - run:
           name: Deploy Over SSH
           command: |
-            TAG=0.0.$CIRCLE_BUILD_NUM
+            TAG=0.0.$PIPELINE_NUMBER
             ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST "
             docker login -u $REGISTRY_USER -p $REGISTRY_PASS &&
             docker container stop $CIRCLE_PROJECT_REPONAME || true &&
