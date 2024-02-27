@@ -1,5 +1,8 @@
 version: 2.1
 
+environment:
+  TAG: 0.0.0
+
 jobs:
   test:
     docker:
@@ -17,8 +20,6 @@ jobs:
     docker:
       - image: cimg/base:2024.01
     resource_class: medium
-    environment:
-      TAG: 0.0.0
     steps:
       - checkout
       - setup_remote_docker:
