@@ -1,5 +1,8 @@
 version: 2.1
 
+environment:
+  TAG: 0.0.<< pipeline.number >>
+
 jobs:
   test:
     docker:
@@ -24,13 +27,11 @@ jobs:
       - run:
           name: Build Docker image
           command: |
-            TAG=0.0.$PIPELINE_NUMBER
             docker build -t $REGISTRY_USER/$CIRCLE_PROJECT_REPONAME:$TAG .
             docker build -t $REGISTRY_USER/$CIRCLE_PROJECT_REPONAME .
       - run:
           name: Push Docker image
           command: |
-            TAG=0.0.$PIPELINE_NUMBER
             echo $REGISTRY_PASS | docker login -u $REGISTRY_USER --password-stdin
             docker push $REGISTRY_USER/$CIRCLE_PROJECT_REPONAME:$TAG
             docker push $REGISTRY_USER/$CIRCLE_PROJECT_REPONAME
@@ -44,7 +45,6 @@ jobs:
       - run:
           name: Deploy Over SSH
           command: |
-            TAG=0.0.$PIPELINE_NUMBER
             ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST "
             docker login -u $REGISTRY_USER -p $REGISTRY_PASS &&
             docker container stop $CIRCLE_PROJECT_REPONAME || true &&
