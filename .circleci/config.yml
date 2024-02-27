@@ -33,6 +33,7 @@ jobs:
           command: |
             echo $REGISTRY_PASS | docker login -u $REGISTRY_USER --password-stdin
             docker push $REGISTRY_USER/$CIRCLE_PROJECT_REPONAME:$TAG
+            sleep 2
             docker push $REGISTRY_USER/$CIRCLE_PROJECT_REPONAME
 
   deploy:
