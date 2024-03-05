@@ -5,7 +5,7 @@ webapp = Flask(__name__)
 
 @webapp.route('/')
 def home():
-    return "Sobota"
+    return "2024-03-05-1752"
 
 
 if __name__ == '__main__':
