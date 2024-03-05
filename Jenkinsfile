@@ -7,7 +7,7 @@ pipeline {
             steps {
                 echo 'building the app...'
                 sh '''
-                pip install -r requirements.txt
+                pip3 install -r requirements.txt
                 '''
             }
         }
