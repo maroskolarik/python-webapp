@@ -1,6 +1,6 @@
 pipeline {
         agent {
-            docker { image 'ubuntu' }
+            docker { image 'sabbir1cse/ubuntu-python-pip-supervisor' }
         }
     stages {
         stage('build') {
