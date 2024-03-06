@@ -1,5 +1,9 @@
 pipeline {
-        agent any
+        agent {
+            docker {
+                image 'debian:stable-slim'
+            }
+        }
     stages {
         stage('prepare env') {
             steps {
