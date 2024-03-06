@@ -7,7 +7,10 @@ pipeline {
             steps {
                 echo 'building the app...'
                 sh '''
-                pip install -r ./requirements.txt --user
+                pip install virtualenv
+                virtualenv venv
+                source venv/bin/activate
+                pip install -r ./requirements.txt
                 '''
             }
         }
