@@ -6,24 +6,20 @@ pipeline {
             }
         }
     stages {
-        stage('prepare env') {
-            steps {
-                echo 'preparing the environment...'
-                sh '''
-                python3 --version
-                pip --version
-                pip install -r requirements.txt
-                '''
-            }
-        }
         stage('build') {
             steps {
                 echo 'building the app...'
+                sh '''
+                pip install -r ./requirements.txt
+                '''
             }
         }
         stage('test') {
             steps {
                 echo 'testing the app...'
+                sh '''
+                python3 ./src.test_webapp.py
+                '''
             }
         }
     }
