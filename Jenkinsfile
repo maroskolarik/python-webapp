@@ -1,6 +1,6 @@
 pipeline {
         agent {
-            docker { image 'sabbir1cse/ubuntu-python-pip-supervisor' }
+            docker { image 'python:3.12.2-slim-bookworm' }
         }
     stages {
         stage('build') {
