@@ -2,7 +2,7 @@ pipeline {
         agent {
             docker {
                 image 'python:3.12-slim'
-                args '-u root --privileged
+                args '-u root --privileged'
             }
         }
     stages {
