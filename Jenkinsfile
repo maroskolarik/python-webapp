@@ -1,7 +1,7 @@
 pipeline {
         agent {
             docker {
-                image 'debian:stable-slim'
+                image 'python'
             }
         }
     stages {
@@ -9,8 +9,8 @@ pipeline {
             steps {
                 echo 'preparing the environment...'
                 sh '''
-                apt install python3
-                apt install pip
+                python3 --version
+                pip --version
                 '''
             }
         }
