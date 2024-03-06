@@ -7,7 +7,7 @@ pipeline {
             steps {
                 echo 'building the app...'
                 sh '''
-                pip install virtualenv
+                sudo pip install virtualenv
                 virtualenv venv
                 source venv/bin/activate
                 pip install -r ./requirements.txt
