@@ -7,7 +7,7 @@ pipeline {
             steps {
                 echo 'building the app...'
                 sh '''
-                pip install -r ./requirements.txt
+                pip install -H -r ./requirements.txt
                 '''
             }
         }
