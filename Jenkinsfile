@@ -18,7 +18,7 @@ pipeline {
             steps {
                 echo 'testing the app...'
                 sh '''
-                python3 ./src.test_webapp.py
+                python3 ./src/test_webapp.py
                 '''
             }
         }
