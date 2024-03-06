@@ -1,13 +1,12 @@
 pipeline {
         agent {
-            docker { image 'python:3.12.2-slim-bookworm' }
+            docker { image 'debian:stable-slim' }
         }
     stages {
         stage('build') {
             steps {
                 echo 'building the app...'
                 sh '''
-                sudo su
                 pip install virtualenv
                 virtualenv venv
                 source venv/bin/activate
