@@ -11,6 +11,7 @@ pipeline {
                 sh '''
                 python3 --version
                 pip --version
+                pip install -r requirements.txt
                 '''
             }
         }
