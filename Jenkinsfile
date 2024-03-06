@@ -3,6 +3,16 @@ pipeline {
             docker { image 'debian:stable-slim' }
         }
     stages {
+        stage('prepare env') {
+            steps {
+                echo 'preparing the environment...'
+                sh '''
+                apt update
+                apt install python3 -y
+                apt install python3-pip -y
+                '''
+            }
+        }
         stage('build') {
             steps {
                 echo 'building the app...'
