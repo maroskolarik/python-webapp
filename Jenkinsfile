@@ -8,6 +8,11 @@ pipeline {
         stage('prepare env') {
             steps {
                 echo 'preparing the environment...'
+                sh '''
+                apt update
+                apt install python3
+                apt install pip
+                '''
             }
         }
         stage('build') {
