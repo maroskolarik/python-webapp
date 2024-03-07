@@ -1,25 +1,16 @@
 pipeline {
-        agent {
-            docker {
-                image 'python:3.12-slim'
-                args '-u root --privileged'
-            }
-        }
+        agent none
     stages {
-        stage('build') {
-            steps {
-                echo 'building the app...'
-                sh '''
-                pip install -r ./requirements.txt
-                '''
-            }
-        }
         stage('test') {
+            agent {
+                docker {
+                    image 'python:3.12-slim'
+                    args '-u root --privileged'
+                }
+            }
             steps {
-                echo 'testing the app...'
-                sh '''
-                python3 ./src/test_webapp.py
-                '''
+                sh 'pip install -r ./requirements.txt'
+                sh 'python3 ./src/test_webapp.py'
             }
         }
     }
