@@ -22,6 +22,7 @@ pipeline {
             }
             steps {
                 sh "whoami"
+                sh 'apt update && apt install curl -y'
                 sh 'curl -fsSL https://get.docker.com | sh'
                 sh "docker -v"
                 sh "docker run hello-world"
