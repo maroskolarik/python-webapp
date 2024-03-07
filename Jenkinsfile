@@ -21,8 +21,8 @@ pipeline {
                 }
             }
             steps {
-                sh "docker build -t maroskolarik/python-webapp-jenkins:${BUILD_NUMBER} ."
-                sh "docker build -t maroskolarik/python-webapp-jenkins:latest ."
+                sh "sudo docker build -t maroskolarik/python-webapp-jenkins:0.0.${BUILD_NUMBER} ."
+                sh "sudo docker build -t maroskolarik/python-webapp-jenkins:latest ."
             }
         }
     }
