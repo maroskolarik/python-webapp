@@ -17,7 +17,7 @@ pipeline {
             agent {
                 docker {
                     image "docker:25.0.3-dind"
-                    args "-u root --privileged"
+//                     args "-u root --privileged"
                 }
             }
             steps {
