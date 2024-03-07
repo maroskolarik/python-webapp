@@ -17,11 +17,12 @@ pipeline {
             agent {
                 docker {
                     image "docker:25.0.3-dind"
-//                     args "-u root --privileged"
+                    args "-u root --privileged"
                 }
             }
             steps {
-                sh 'whoami'
+                sh "whoami"
+                sh "docker -v"
 //                 sh "groupadd docker"
 //                 sh "usermod -aG docker jenkins"
 //                 sh "newgrp docker"
