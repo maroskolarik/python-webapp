@@ -23,6 +23,7 @@ pipeline {
             steps {
                 sh "whoami"
                 sh "docker -v"
+                sh "docker run hello-world"
                 sh "docker build -t maroskolarik/python-webapp-jenkins:0.0.${BUILD_NUMBER} ."
 //                 sh "docker build -t maroskolarik/python-webapp-jenkins:latest ."
             }
