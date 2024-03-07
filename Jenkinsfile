@@ -13,5 +13,15 @@ pipeline {
                 sh 'python3 ./src/test_webapp.py'
             }
         }
+        stage('build') {
+            agent {
+                docker {
+                    image '25.0.3-dind-rootless'
+                }
+            }
+            steps {
+                sh 'docker build -t maroskolarik/python-webapp-jenkins:latest .'
+            }
+        }
     }
 }
