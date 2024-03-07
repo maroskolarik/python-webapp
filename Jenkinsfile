@@ -16,7 +16,7 @@ pipeline {
         stage("build") {
             agent {
                 docker {
-                    image "docker:25.0.3-dind-rootless"
+                    image "docker"
                     args '--privileged'
                 }
             }
