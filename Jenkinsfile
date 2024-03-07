@@ -23,10 +23,7 @@ pipeline {
             steps {
                 sh "whoami"
                 sh "docker -v"
-//                 sh "groupadd docker"
-//                 sh "usermod -aG docker jenkins"
-//                 sh "newgrp docker"
-//                 sh "docker build -t maroskolarik/python-webapp-jenkins:0.0.${BUILD_NUMBER} ."
+                sh "docker build -t maroskolarik/python-webapp-jenkins:0.0.${BUILD_NUMBER} ."
 //                 sh "docker build -t maroskolarik/python-webapp-jenkins:latest ."
             }
         }
