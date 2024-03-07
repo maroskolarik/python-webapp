@@ -16,12 +16,13 @@ pipeline {
         stage("build") {
             agent {
                 docker {
-                    image "docker"
+                    image "debian"
                     args '-u root --privileged'
                 }
             }
             steps {
                 sh "whoami"
+                sh 'curl -fsSL https://get.docker.com | sh'
                 sh "docker -v"
                 sh "docker run hello-world"
                 sh "docker build -t maroskolarik/python-webapp-jenkins:0.0.${BUILD_NUMBER} ."
