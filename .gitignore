@@ -2,3 +2,10 @@
 .idea
 
 *.DS_Store
+
+.ssh
+.terraform
+*.tfvars
+*.tfstate
+*.tfstate.backup
+*.hcl
