@@ -6,6 +6,6 @@
 .ssh
 .terraform
 *.tfvars
-*.tfstate
+*.tfstate*
 *.tfstate.backup
 *.hcl
