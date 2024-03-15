@@ -16,12 +16,15 @@ pipeline {
                 sh "docker build -t maroskolarik/python-webapp-jenkins:latest ."
             }
         }
+        stage('login') {
+            steps {
+                sh 'echo DOCKERHUB_CREDENTIALS_PSW | docker login -u DOCKERHUB_CREDENTIALS_USR --password-stdin'
+            }
+        }
         stage("push") {
             steps {
-                withDockerRegistry([ credentialsId: "dockerhub-credentials", url: "" ]) {
-                    sh "docker push maroskolarik/python-webapp-jenkins:0.0.${BUILD_NUMBER}"
-                    sh "docker push maroskolarik/python-webapp-jenkins:latest"
-                }
+                sh "docker push maroskolarik/python-webapp-jenkins:0.0.${BUILD_NUMBER}"
+                sh "docker push maroskolarik/python-webapp-jenkins:latest"
             }
         }
     }
