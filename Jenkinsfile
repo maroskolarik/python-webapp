@@ -17,11 +17,10 @@ pipeline {
             }
         }
         stage("push") {
-            steps {
-                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+            withDockerRegistry([ credentialsId: "dockerhub-credentials", url: "" ]) {
                 sh "docker push maroskolarik/python-webapp-jenkins:0.0.${BUILD_NUMBER}"
                 sh "docker push maroskolarik/python-webapp-jenkins:latest"
-            }
+                }
         }
     }
 }
