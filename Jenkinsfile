@@ -1,5 +1,8 @@
 pipeline {
         agent any
+        environment {
+            DOCKERHUB_CREDENTIALS= credentials('dockerhub-credentials')
+        }
     stages {
         stage("test") {
             steps {
@@ -15,6 +18,7 @@ pipeline {
         }
         stage("build") {
             steps {
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
                 sh "docker push maroskolarik/python-webapp-jenkins:0.0.${BUILD_NUMBER}"
                 sh "docker push maroskolarik/python-webapp-jenkins:latest"
             }
