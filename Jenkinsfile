@@ -16,7 +16,7 @@ pipeline {
                 sh "docker build -t maroskolarik/python-webapp-jenkins:latest ."
             }
         }
-        stage("build") {
+        stage("push") {
             steps {
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
                 sh "docker push maroskolarik/python-webapp-jenkins:0.0.${BUILD_NUMBER}"
