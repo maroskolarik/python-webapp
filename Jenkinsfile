@@ -17,10 +17,12 @@ pipeline {
             }
         }
         stage("push") {
-            withDockerRegistry([ credentialsId: "dockerhub-credentials", url: "" ]) {
-                sh "docker push maroskolarik/python-webapp-jenkins:0.0.${BUILD_NUMBER}"
-                sh "docker push maroskolarik/python-webapp-jenkins:latest"
+            steps {
+                withDockerRegistry([ credentialsId: "dockerhub-credentials", url: "" ]) {
+                    sh "docker push maroskolarik/python-webapp-jenkins:0.0.${BUILD_NUMBER}"
+                    sh "docker push maroskolarik/python-webapp-jenkins:latest"
                 }
+            }
         }
     }
 }
