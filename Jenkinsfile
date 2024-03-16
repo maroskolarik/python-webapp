@@ -1,8 +1,8 @@
 pipeline {
     agent none
     environment {
-        DOCKERHUB_CREDS = credentials('dockerhub-credentials')
-        DEPLOYMENT_SERVER_CREDS = credentials('server-credentials')
+        DOCKERHUB_CREDS = credentials('dockerhub-creds')
+        DEPLOYMENT_SERVER_CREDS = credentials('deployment-server-creds')
     }
     stages {
         stage("test") {
