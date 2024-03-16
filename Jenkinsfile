@@ -18,35 +18,27 @@ pipeline {
             }
         }
         stage("build") {
-            agent {
-                docker { image 'python'}
-            }
+            agent any
             steps {
                 sh "docker build -t maroskolarik/python-webapp-jenkins:0.0.${BUILD_NUMBER} ."
                 sh "docker build -t maroskolarik/python-webapp-jenkins:latest ."
             }
         }
         stage('login') {
-            agent {
-                docker { image 'python'}
-            }
+            agent any
             steps {
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
             }
         }
         stage("push") {
-            agent {
-                docker { image 'python'}
-            }
+            agent any
             steps {
                 sh "docker push maroskolarik/python-webapp-jenkins:0.0.${BUILD_NUMBER}"
                 sh "docker push maroskolarik/python-webapp-jenkins:latest"
             }
         }
         stage('deploy') {
-            agent {
-                docker { image 'python'}
-            }
+            agent any
             steps {
                 echo 'deploying'
             }
