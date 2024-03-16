@@ -9,7 +9,7 @@ pipeline {
             agent {
                 docker {
                     image 'python'
-                    args '--privileged
+                    args '--privileged'
                 }
             }
             steps {
